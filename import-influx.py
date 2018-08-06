@@ -38,11 +38,11 @@ def import_csv(stock):
                 continue
 
             current_series = pd.Series({
-                'Open': open_price,
-                'High': high_price,
-                'Low': low_price,
-                'Close': close_price,
-                'Volume': volume,
+                'Open': float(open_price),
+                'High': float(high_price),
+                'Low': float(low_price),
+                'Close': float(close_price),
+                'Volume': int(volume),
             }, name=quote_date.date)
 
             df = df.append(current_series)
