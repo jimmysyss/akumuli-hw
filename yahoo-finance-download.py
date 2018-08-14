@@ -50,7 +50,9 @@ def download():
                 download_button = driver.find_element_by_xpath(
                     '//*[@id="Col1-1-HistoricalDataTable-Proxy"]/section/div[1]/div[2]/span[2]/a')
                 webdriver.ActionChains(driver).move_to_element(download_button).click(
-                    download_button).pause(5).perform()
+                    download_button).perform()
+
+                webdriver.ActionChains(driver).pause(7).perform()
 
                 driver.close()
             except Exception as e:
