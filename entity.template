@@ -1,0 +1,43 @@
+package com.jimmy.clicktrade.domain;
+
+import java.io.Serializable;
+import java.time.LocalDateTime;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+
+import org.hibernate.annotations.Type;
+
+import lombok.Getter;
+import lombok.Setter;
+
+@Entity
+@Table(name = "{{table_name}}")
+@Getter
+@Setter
+public class {{Camel_case(table_name)}} extends BaseEntity implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
+    {% for col in col_list %}
+        {% if col.field_name in ('ID', 'ACTIVE', 'VERSION', 'CREATED_DATE', 'CREATED_BY', 'LAST_UPDATED_DATE', 'LAST_UPDATED_BY') %}
+        {% elif col.data_type.startswith('Varchar2') %}
+    @Column(name="{{col.field_name}}")
+    private String {{camel_case(col.field_name)}};
+        {% elif col.data_type.startswith('Char(1)') %}
+    @Column(name="{{col.field_name}}")
+    private Boolean {{camel_case(col.field_name)}};
+        {% elif col.data_type.startswith('Char') %}
+    @Column(name="{{col.field_name}}")
+    private String {{camel_case(col.field_name)}};
+        {% elif col.data_type.startswith('Timestamp') %}
+    @Column(name="{{col.field_name}}")
+    private LocalDateTime {{camel_case(col.field_name)}};
+        {% endif %}
+    {% endfor %}
+}
